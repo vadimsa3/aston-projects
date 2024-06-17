@@ -5,9 +5,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
 /*
     1.	Напишите программу, которая создает список целых чисел,
@@ -83,7 +84,6 @@ public class Main {
 //                .collect(Collectors.groupingBy(Customer::isActive, Collectors.averagingInt(Customer::getBillingCount)));
 //        System.out.println(avg);
 
-
 /*
     5.	Создайте список строк. Используйте стримы для фильтрации строк длиной
     более 5 символов и поиска первой строки, удовлетворяющей условию.
@@ -116,9 +116,13 @@ public class Main {
         System.out.print("-- Read file -- " + "\n");
 
         Path path = Paths.get("example.txt");
-        String res = Files.lines(path, StandardCharsets.UTF_8)
-                .collect(Collectors.joining(System.lineSeparator()));
-        System.out.println(res);
+        try {
+            String res = Files.lines(path, StandardCharsets.UTF_8)
+                    .collect(Collectors.joining(System.lineSeparator()));
+            System.out.println(res);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
