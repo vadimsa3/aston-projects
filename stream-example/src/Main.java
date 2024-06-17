@@ -3,10 +3,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Array;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args){
@@ -16,13 +14,13 @@ public class Main {
     а затем использует стримы для фильтрации только четных чисел и их сортировки
     по возрастанию.
  */
-        System.out.print(" -- Sorted stream --" + "\n");
+        System.out.print(" -- Sorted stream, ver.1 --" + "\n");
         Arrays.stream(new Integer[]{3, -1, 0, -4, 1, -2, 3, 7, 5, 6, -10, 8, 20, -10, 2})
                 .filter(x -> x % 2 == 0)
                 .sorted()
                 .forEach(System.out::println);
 
-        System.out.print(" -- Sorted stream --" + "\n");
+        System.out.print(" -- Sorted stream, ver.2 --" + "\n");
         int[] arr = {-3, -1, 0, -4, 1, -2, 3, 7, 5, 6, -10, 8, 20, -10, 2};
         Arrays.stream(arr)
                 .filter(x -> x % 2 == 0)
@@ -69,6 +67,7 @@ public class Main {
         map1.forEach((k, v) -> System.out.println(k + ": " + v));
         System.out.println();
 
+        System.out.print("-- Person grouping by > 40  -- " + "\n");
         Map<Integer, List<Person>> map2 = persons.stream()
                 .filter(p -> p.getAge() > 40)
                 .collect(Collectors.groupingBy(Person::getAge));
@@ -126,7 +125,7 @@ public class Main {
     фильтрует строки по заданному условию (например, содержащим определенное слово),
     и выводит результаты на консоль.
  */
-        System.out.print("-- Read file -- " + "\n");
+        System.out.print("-- Read file txt -- " + "\n");
 
         Path path = Paths.get("example.txt");
         try {
