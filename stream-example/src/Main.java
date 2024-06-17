@@ -3,6 +3,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,6 +16,12 @@ public class Main {
     а затем использует стримы для фильтрации только четных чисел и их сортировки
     по возрастанию.
  */
+        System.out.print(" -- Sorted stream --" + "\n");
+        Arrays.stream(new Integer[]{3, -1, 0, -4, 1, -2, 3, 7, 5, 6, -10, 8, 20, -10, 2})
+                .filter(x -> x % 2 == 0)
+                .sorted()
+                .forEach(System.out::println);
+
         System.out.print(" -- Sorted stream --" + "\n");
         int[] arr = {-3, -1, 0, -4, 1, -2, 3, 7, 5, 6, -10, 8, 20, -10, 2};
         Arrays.stream(arr)
@@ -67,6 +74,12 @@ public class Main {
                 .collect(Collectors.groupingBy(Person::getAge));
         map2.forEach((k, v) -> System.out.println(k + ": " + v));
         System.out.println();
+
+        System.out.print("-- Person average -- " + "\n");
+        Map<String, Double> avg = persons
+                .stream()
+                .collect(Collectors.groupingBy(Person::getName, Collectors.averagingInt(Person::getAge)));
+        System.out.println(avg);
 
 //        List<Customer> customers = Arrays.asList(
 //                new Customer(10, true, 5),
