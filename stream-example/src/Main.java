@@ -4,10 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
 /*
     1.	Напишите программу, которая создает список целых чисел,
@@ -80,22 +82,6 @@ public class Main {
                 .collect(Collectors.groupingBy(Person::getName, Collectors.averagingInt(Person::getAge)));
         System.out.println(avg);
 
-//        List<Customer> customers = Arrays.asList(
-//                new Customer(10, true, 5),
-//                new Customer(11, true, 3),
-//                new Customer(20, false, 12),
-//                new Customer(21, false, 11));
-//
-//        Map<Boolean, Integer> sum = customers
-//                .stream()
-//                .collect(Collectors.groupingBy(Customer::isActive, Collectors.summingInt(Customer::getBillingCount)));
-//        System.out.println(sum);
-//
-//        Map<Boolean, Double> avg = customers
-//                .stream()
-//                .collect(Collectors.groupingBy(Customer::isActive, Collectors.averagingInt(Customer::getBillingCount)));
-//        System.out.println(avg);
-
 /*
     5.	Создайте список строк. Используйте стримы для фильтрации строк длиной
     более 5 символов и поиска первой строки, удовлетворяющей условию.
@@ -118,7 +104,7 @@ public class Main {
         list.parallelStream()
                 .filter(s -> s.length() > 5)
                 .distinct()
-                .forEach(System.out::println);
+                .forEachOrdered(System.out::println);
 
 /*
     7. Напишите программу, которая читает текстовый файл построчно,
@@ -126,15 +112,30 @@ public class Main {
     и выводит результаты на консоль.
  */
         System.out.print("-- Read file txt -- " + "\n");
-
         Path path = Paths.get("example.txt");
         try {
-            String res = Files.lines(path, StandardCharsets.UTF_8)
-                    .collect(Collectors.joining(System.lineSeparator()));
-            System.out.println(res);
+            Stream<String> streamByCondition = Files.lines(path, StandardCharsets.UTF_8)
+                    .filter(s -> s.contains("по заданному условию"))
+                    .collect(Collectors.joining()).lines();
+            System.out.println("String by condition : " + streamByCondition.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+/*  8. Рассмотрите ситуацию, когда стрим может содержать значения, которые не могут быть преобразованы в желаемый тип.
+    Напишите программу, которая фильтрует стрим таким образом, чтобы исключить некорректные значения
+    и обработать такие случаи.
+ */
+        System.out.print("\n" + "-- Transformation is OK -- " + "\n");
+        Stream.of("3", "6", "8", "14", "15")
+                .mapToInt(Integer::parseInt)
+                .filter(num -> num % 3 == 0)
+                .forEach(System.out::println);
+
+//        System.out.print("\n" + "-- Transformation is not OK -- " + "\n");
+//        Stream.of(3, "6", "8", 14, "15")
+//                .filter(   )
+//                .mapToInt(Integer::parseInt)
+//                .forEach(System.out::println);
     }
 }
