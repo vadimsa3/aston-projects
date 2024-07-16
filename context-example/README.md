@@ -1,0 +1,1 @@
+<h1 align=>Реализация класса IntensiveContext - "аналог" Spring Context.</h1>
