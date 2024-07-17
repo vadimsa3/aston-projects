@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
 public class DependencyFactoryImpl implements DependencyFactory {
 
     /**
-     * Создание экземпляра класса.
+     * Создание экземпляра класса с помощью конструктора.
      *
      * @param type класса
      * @exception RuntimeException ошибка создания экземпляра класса
